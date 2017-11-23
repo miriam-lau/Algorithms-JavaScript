@@ -3,10 +3,9 @@
  * Output: reorder its entries so that the even entries appear first
  * Restrictions: cannot use additional space.
  * Questions: negative numbers? 0? empty array? (solution assumes no for both).
- * Time complexity:
- * Space complexity:
+ * Time complexity: O(n).
+ * Space complexity: O(1).
  */
-
 var arrangeEvenFirst = function(ints) {
   let leftIndex = 0;
   let rightIndex = ints.length - 1;
@@ -31,16 +30,15 @@ var arrangeEvenFirst = function(ints) {
  * followed by elements = array[i] and then elements > array[i].
  * Restrictions: cannot use additional space.
  * Questions: empty array? (solution assumes no for both).
- * Time complexity:
- * Space complexity:
+ * Time complexity: O(n).
+ * Space complexity: O(1).
  */
-
 var partitionOnPivot = function(ints, i) {
   let leftIndex = 0;
   let rightIndex = ints.length - 1;
   let pivot = ints[i];
 
-  /** move all elements > pivot are to the right. */
+  // Move all elements > pivot are to the right.
   while(leftIndex < rightIndex) {
     if (ints[leftIndex] <= pivot) {
       leftIndex++;
@@ -52,7 +50,7 @@ var partitionOnPivot = function(ints, i) {
     }
   }
 
-  /** now all elements <= pivot are from indices 0 to rightIndex. */
+  // Now all elements <= pivot are from indices 0 to rightIndex.
   leftIndex = 0;
   while(leftIndex < rightIndex) {
     if (ints[leftIndex] < pivot) {
@@ -72,8 +70,8 @@ var partitionOnPivot = function(ints, i) {
  * Input: array of stock prices.
  * Output: max profit that could be made by buying and then selling one share
  * of that stock.
- * Time Complexity:
- * Space Complexity:
+ * Time Complexity: O(n).
+ * Space Complexity: O(1).
  */
 var findMaxProfit = function(prices) {
   let minPrice = prices[0];
