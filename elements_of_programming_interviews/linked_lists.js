@@ -8,7 +8,7 @@
 class Node {
   constructor(value = null, nextNode = null) {
     this.value = value;
-    this.next = nextNode;
+    this.nextNode = nextNode;
   }
 }
 
@@ -29,6 +29,7 @@ class LinkedList {
       if (currentNode === node) {
         return true;
       }
+      currentNode = currentNode.nextNode;
     }
 
     return false;
@@ -45,7 +46,7 @@ class LinkedList {
   // Delete a node after nodeA, assumes nodeA !== tail, LinkedList.delete(nodeB).
   // A -> B -> C, delete B; assign A's nextNode to C, A -> C.
   // Create a static method on the class, instances cannot call the method.
-  static delete(nodeA) {
+  static remove(nodeA) {
     let deletedNode = nodeA.nextNode;
     nodeA.nextNode = nodeA.nextNode.nextNode;
 
@@ -65,6 +66,8 @@ var search = function(linkedList, node) {
     if (currentNode === node) {
       return true;
     }
+
+    currentNode = currentNode.nextNode;
   }
 
   return false;
@@ -79,7 +82,7 @@ var insert = function(nodeA, nodeB) {
 
 // Delete a node after nodeA, assumes nodeA is not the tail, delete(nodeA).
 // A -> B -> C, delete B; assign A's nextNode to C, A -> C.
-var delete = function(nodeA) {
+var remove = function(nodeA) {
   let deletedNode = nodeA.nextNode;
   nodeA.nextNode = nodeA.nextNode.nextNode;
 
@@ -106,12 +109,16 @@ var mergeTwoLinkedLists = function(listA, listB) {
   let currentNode = result.head;
 
   while (nodeA !== null && nodeB !== null) {
+    let temp = null;
+
     if (nodeA.value <= nodeB.value) {
+      temp = nodeA.nextNode;
       LinkedList.insert(currentNode, nodeA);
-      nodeA = nodeA.nextNode;
+      nodeA = temp;
     } else {
+      temp = nodeB.nextNode;
       LinkedList.insert(currentNode, nodeB);
-      nodeB = nodeB.nextNode;
+      nodeB = temp;
     }
 
     currentNode = currentNode.nextNode;
@@ -122,3 +129,10 @@ var mergeTwoLinkedLists = function(listA, listB) {
 
   return result;
 }
+
+exports.Node = Node;
+exports.LinkedList = LinkedList;
+exports.search = search;
+exports.insert = insert;
+exports.remove = remove;
+exports.mergeTwoLinkedLists = mergeTwoLinkedLists;
