@@ -1,5 +1,8 @@
+const Node = require("./linked_list.js").Node;
+const LinkedList = require("./linked_list.js").LinkedList;
+
 /** 8.0 Stack Boot Camp
- * LIFO: last in first out
+ * LIFO: last in, first out
  * Implement a function that uses a stack to print the values of a singly
  * linked list in reverse order.
  * Time complexity: O(n)
@@ -25,13 +28,13 @@ var printListinReverse = function(linkedList) {
   return stack;
 }
 
-
 /** 8.1 Implement a stack with max API
  * Design a stack that includes the functions: max, push and pop. The max method
  * should return the maximum value stored in the stack.
  * Time complexity for getMax, push, pop: O(1).
  * Space complexity: O(n), n is the number of entries in the stack.
  */
+
 class Stack extends Array {
   constructor() {
     super();
