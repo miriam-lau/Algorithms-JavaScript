@@ -1,6 +1,6 @@
 var assert = require("chai").assert;
 var expect = require("chai").expect;
-var arrays = require("../arrays.js");
+var arrays = require("../array.js");
 
 describe('Array', function() {
   describe('#arrangeEvenFirst()', function() {

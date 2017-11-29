@@ -1,6 +1,6 @@
 var assert = require("chai").assert;
 var expect = require("chai").expect;
-var strings = require("../strings.js");
+var strings = require("../string.js");
 
 describe('String', function() {
   describe('#isPalindrome', function() {
@@ -61,7 +61,7 @@ describe('String', function() {
     it('works with 0', function() {
       assert.equal(strings.convertStrToBase("0", 3, 7), "0");
     });
-    
+
     it('works with 1', function() {
       assert.equal(strings.convertStrToBase("1", 3, 7), "1");
     });
