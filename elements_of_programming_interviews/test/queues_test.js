@@ -47,30 +47,30 @@ describe('Queue', function() {
 
       beforeEach(function() {
         queue = new Queue();
-        queue.enqueue(5);
-        queue.enqueue(11);
         queue.enqueue(1);
+        queue.enqueue(5);
         queue.enqueue(3);
+        queue.enqueue(6);
       });
 
       it('works with normal case', function() {
-        assert.equal(queue.getMax(), 11);
+        assert.equal(queue.getMax(), 6);
       });
 
       it('returns next highest max if max is removed', function() {
         queue.dequeue();
         queue.dequeue();
-        assert.equal(queue.getMax(), 3);
+        assert.equal(queue.getMax(), 6);
       });
 
       it('works for duplicate max values', function() {
         queue.dequeue();
         queue.dequeue();
-        // queue.values = [1, 3], queue.maxNums = [3]
+        // queue.values = [3, 6], queue.maxNums = [6]
         queue.enqueue(10);
         queue.enqueue(8);
         queue.enqueue(10);
-        // queue.values = [1, 3, 10, 8, 10], queue.maxNums = [10, 10]
+        // queue.values = [3, 6, 10, 8, 10], queue.maxNums = [10, 10]
         assert.equal(queue.getMax(), 10);
 
         queue.dequeue();

@@ -34,12 +34,32 @@ describe('Linked List', function() {
 
       list.head = nodeA;
 
-      it('finds a node in the list', function() {
-        assert.equal(list.search(nodeC), true);
+      it('finds a node in the list when passed a value', function() {
+        assert.equal(list.search(3), true);
       });
 
-      it('returns false if node is not found', function() {
-        assert.equal(list.search(nodeE), false);
+      it('returns false if node with value is not found', function() {
+        assert.equal(list.search(5), false);
+      });
+    });
+
+    describe('#add', function() {
+      const list = new LinkedList();
+      list.add(1);
+      list.add(2);
+      list.add(3);
+      list.add(4);
+
+      it('works with the normal case', function() {
+        let result = [1, 2, 3, 4];
+        let index = 0;
+        let currentNode = list.head;
+
+        while (currentNode !== null) {
+          assert.equal(currentNode.value, result[index]);
+          index++;
+          currentNode = currentNode.nextNode;
+        }
       });
     });
 
@@ -55,7 +75,7 @@ describe('Linked List', function() {
       LinkedList.insert(nodeD, nodeE);
 
       it('inserts a node after another node', function() {
-        assert.equal(list.search(nodeE), true);
+        assert.equal(list.search(5), true);
         assert.equal(nodeD.nextNode, nodeE);
       });
     });
@@ -71,7 +91,7 @@ describe('Linked List', function() {
       const deletedNode = LinkedList.remove(nodeB);
 
       it('deletes the node after the node passed in', function() {
-        assert.equal(list.search(nodeC), false);
+        assert.equal(list.search(3), false);
       });
 
       it('returns the deleted node', function() {
@@ -95,11 +115,11 @@ describe('Linked List', function() {
     list.head = nodeA;
 
     it('finds a node in the list', function() {
-      assert.equal(linkedLists.search(list, nodeC), true);
+      assert.equal(linkedLists.search(list, 3), true);
     });
 
     it('returns false if node is not found', function() {
-      assert.equal(linkedLists.search(list, nodeE), false);
+      assert.equal(linkedLists.search(list, 5), false);
     });
   });
 
@@ -115,7 +135,7 @@ describe('Linked List', function() {
     linkedLists.insert(nodeD, nodeE);
 
     it('inserts a node after another node', function() {
-      assert.equal(linkedLists.search(list, nodeE), true);
+      assert.equal(linkedLists.search(list, 5), true);
       assert.equal(nodeD.nextNode, nodeE);
     });
   });
@@ -131,7 +151,7 @@ describe('Linked List', function() {
     const deletedNode = linkedLists.remove(nodeB);
 
     it('deletes the node after the node passed in', function() {
-      assert.equal(linkedLists.search(list, nodeC), false);
+      assert.equal(linkedLists.search(list, 3), false);
     });
 
     it('returns the deleted node', function() {
@@ -160,16 +180,14 @@ describe('Linked List', function() {
       const nodeE = new Node(2, null);
 
       list1 = new LinkedList();
-      list1.add(nodeA);
-      list1.add(nodeB);
-      list1.add(nodeC);
-      list1.add(nodeD);
+      LinkedList.insert(nodeA, nodeB);
+      LinkedList.insert(nodeB, nodeC);
+      LinkedList.insert(nodeC, nodeD);
 
       list2 = new LinkedList();
-      list2.add(nodeE);
-      list2.add(nodeF);
-      list2.add(nodeG);
-      list2.add(nodeH);
+      LinkedList.insert(nodeE, nodeF);
+      LinkedList.insert(nodeF, nodeG);
+      LinkedList.insert(nodeG, nodeH);
     });
 
     it('works for the normal case', function() {

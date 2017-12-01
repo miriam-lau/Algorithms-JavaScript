@@ -11,7 +11,7 @@ class Queue extends Array {
     this.maxNums = new Array();
   }
 
-  // For maxNum: if num > last entry, then replace, if <= then add.
+  // For maxNum: whle num > last entry replace, if <= then add.
   // add 5: queue = [5], max = [5]
   // add 11: q = [5, 11], num > last entry so replace: max = [11]
   // add 2: q = [5, 11, 2], num is <= last entry, so add: m = [11, 2]
@@ -22,10 +22,13 @@ class Queue extends Array {
 
     if (this.maxNums.length === 0 || num <= this.maxNums[lastIndex]) {
       this.maxNums.push(num);
-    }
+    } else {
+      while (this.maxNums[lastIndex - 1] < num && lastIndex > 0) {
+        lastIndex--;
+      }
 
-    if (num > this.maxNums[lastIndex]) {
       this.maxNums[lastIndex] = num;
+      this.maxNums = this.maxNums.splice(0, lastIndex + 1);
     }
 
     this.values.push(num);

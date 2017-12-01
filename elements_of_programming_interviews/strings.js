@@ -55,17 +55,9 @@ var convertStrToBase = function(str, b1, b2) {
 
   // Convert number string in b1 to a int in base 10.
   let numInBase10 = null;
-  let power = 1;
-  let rightIndex = str.length - 1;
+  let power = 0;
 
-  if (str.charCodeAt(rightIndex) >= charCodeA &&
-      str.charCodeAt(rightIndex) <= charCodeF) {
-    numInBase10 = str.charCodeAt(rightIndex) - charCodeA + 10;
-  } else {
-    numInBase10 = parseInt(str[rightIndex]);
-  }
-
-  for (let i = str.length - 2; i >= 0; i--) {
+  for (let i = str.length - 1; i >= 0; i--) {
     if (str.charCodeAt(i) >= charCodeA && str.charCodeAt(i) <= charCodeF) {
       numInBase10 += (str.charCodeAt(i) - charCodeA + 10) * Math.pow(b1, power);
     } else {
@@ -106,15 +98,18 @@ var convertStrToBase = function(str, b1, b2) {
  * Space Complexity: O(m), m is the length of the result array.
  */
 var replaceAndRemove = function(chars) {
-  // what if starting chars is longer than resulting chars?
-  // need to remove b's before writing.
-  // remove 'b's and count the num of 'a's.
+  // What if starting chars is longer than resulting chars? So need to remove
+  // b's before writing. Also count the num of 'a's and remaining chars.
   let numOfA = 0;
   let numOfRemainingChars = 0;
   let writeIndex = 0;
 
   for (let i = 0; i < chars.length; i++) {
-    if (chars[i] === 'b' || chars[i] == null) {
+    if (chars[i] === null) {
+      break;
+    }
+
+    if (chars[i] === 'b') {
       continue;
     }
 
@@ -128,12 +123,15 @@ var replaceAndRemove = function(chars) {
     writeIndex++;
   }
 
+  // Set all remaining indices to null. This is needed because writing the
+  // result will happen from right to left and if starting chars had any 'b's
+  // then writeIndex will not be the same as index after the for loop.
   while (writeIndex < chars.length) {
     chars[writeIndex] = null;
     writeIndex++;
   }
 
-  // index position for right most char in result.
+  // Index position for right most char in result.
   writeIndex = numOfRemainingChars + (numOfA * 2) - 1;
 
   for (let i = chars.length - 1; i >= 0; i--) {

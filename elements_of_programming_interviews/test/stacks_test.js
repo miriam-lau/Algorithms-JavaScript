@@ -8,16 +8,11 @@ const Stack = require("../stacks.js").Stack;
 
 describe('Stack', function() {
   describe('#printListinReverse', function() {
-    const nodeD = new Node(4, null);
-    const nodeC = new Node(3, null);
-    const nodeB = new Node(2, null);
-    const nodeA = new Node(1, null);
-
     let list = new LinkedList();
-    list.add(nodeA);
-    list.add(nodeB);
-    list.add(nodeC);
-    list.add(nodeD);
+    list.add(1);
+    list.add(2);
+    list.add(3);
+    list.add(4);
 
     it('works for the normal case', function() {
       let spy = sinon.spy(console, 'log');
@@ -30,7 +25,7 @@ describe('Stack', function() {
     });
 
     it('returns null if list is empty', function() {
-      list.head.nextNode = null;
+      list.head = null;
       assert.deepEqual(stack.printListinReverse(list), null);
     });
   });

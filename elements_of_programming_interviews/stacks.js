@@ -7,7 +7,6 @@ const LinkedList = require("./linked_lists.js").LinkedList;
  * Time complexity for getMax, push, pop: O(1).
  * Space complexity: O(n), n is the number of entries in the stack.
  */
-
 class Stack extends Array {
   constructor() {
     super();
@@ -55,7 +54,7 @@ class Stack extends Array {
  * Space complexity: O(n)
  */
 var printListinReverse = function(linkedList) {
-  if (linkedList.head.nextNode === null) {
+  if (linkedList.head === null) {
     return null;
   }
 

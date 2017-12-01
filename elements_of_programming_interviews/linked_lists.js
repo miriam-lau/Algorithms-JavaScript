@@ -16,17 +16,16 @@ class Node {
 
 class LinkedList {
   constructor() {
-    this.head = new Node();
-    this.tail = new Node();
-    this.head.nextNode = this.tail;
+    this.head = null;
+    this.tail = null;
   }
 
-  // linkedList.search(node), called on an instance of the LinkedList class.
-  search(node) {
+  // linkedList.search(value), called on an instance of the LinkedList class.
+  search(value) {
     let currentNode = this.head;
 
     while (currentNode !== null) {
-      if (currentNode === node) {
+      if (currentNode.value === value) {
         return true;
       }
       currentNode = currentNode.nextNode;
@@ -35,25 +34,19 @@ class LinkedList {
     return false;
   }
 
-  // Add to the end of the list, linkedList.add(node), called on an instance of
+  // Add to the end of the list, linkedList.add(value), called on an instance of
   // the LinkedList class.
-  add(node) {
-    if (this.head.value === null) {
-      this.head = node;
-      this.head.nextNode = this.tail;
-      return;
-    }
+  add(value) {
+    let node = new Node(value);
 
-    if (this.tail.value === null) {
+    if (this.head === null) {
+      this.head = node;
       this.tail = node;
-      this.tail.nextNode = null;
-      this.head.nextNode = this.tail;
       return;
     }
 
     this.tail.nextNode = node;
     this.tail = node;
-    this.tail.nextNode = null;
   }
 
   // Insert nodeB after nodeA, assumes nodeA is not tail;
@@ -79,12 +72,12 @@ class LinkedList {
 //------------------------------------------------------------------------------
 // Implementation as functions.
 
-// search(linkedList, node);
-var search = function(linkedList, node) {
+// search(linkedList, value);
+var search = function(linkedList, value) {
   let currentNode = linkedList.head;
 
   while (currentNode !== null) {
-    if (currentNode === node) {
+    if (currentNode.value === value) {
       return true;
     }
 
@@ -110,7 +103,6 @@ var remove = function(nodeA) {
   return deletedNode;
 }
 
-
 /** 7.1 Merge Two Sorted Singly Linked Lists
  * Input: two singly linked lists, each node holds a number, lists are sorted.
  * Output: resulting list consists of nodes in ascending order from both lists.
@@ -129,26 +121,22 @@ var mergeTwoLinkedLists = function(listA, listB) {
 
   while (listAPtr !== null && listBPtr !== null) {
     if (listAPtr.value <= listBPtr.value) {
-      let node = new Node(listAPtr.value);
-      result.add(node);
+      result.add(listAPtr.value);
       listAPtr = listAPtr.nextNode;
     } else {
-      let node = new Node(listBPtr.value);
-      result.add(node);
+      result.add(listBPtr.value);
       listBPtr = listBPtr.nextNode;
     }
   }
 
   // Add the remaining nodes.
   while (listAPtr !== null) {
-    let node = new Node(listAPtr.value);
-    result.add(node);
+    result.add(listAPtr.value);
     listAPtr = listAPtr.nextNode;
   }
 
   while (listBPtr !== null) {
-    let node = new Node(listBPtr.value);
-    result.add(node);
+    result.add(listBPtr.value);
     listBPtr = listBPtr.nextNode;
   }
 
