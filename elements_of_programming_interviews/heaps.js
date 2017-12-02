@@ -5,7 +5,7 @@
  * Need to store strings by length, and if new string is longer than a previous
  * one, need to insert it in the right place.
  * Heap property: the key at each node >= keys stored in its children.
- * Time Complexity:
+ * Time Complexity: 
  * Space Complexity:
  */
 var getKLongestStrings = function(strings, k) {
