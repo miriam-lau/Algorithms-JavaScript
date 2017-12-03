@@ -37,6 +37,12 @@ var printPostorderTraversal = function(root) {
 var isHeightBalanced = function(root) {
 // need to keep track of the current depth?
 // check if each subtree is balanced?
+  if (root !== null) {
+    isHeightBalanced(root.left);
+    isHeightBalanced(root.right);
+    // return its own height and if each child is balanced
+    // return an object with height property and balanced property
+  }
 }
 
 
