@@ -17,6 +17,7 @@ describe('Stack', function() {
     it('works for the normal case', function() {
       let spy = sinon.spy(console, 'log');
       stack.printListinReverse(list);
+
       assert(spy.calledWith(4));
       assert(spy.calledWith(3));
       assert(spy.calledWith(2));
@@ -26,6 +27,7 @@ describe('Stack', function() {
 
     it('returns null if list is empty', function() {
       list.head = null;
+
       assert.deepEqual(stack.printListinReverse(list), null);
     });
   });
@@ -40,6 +42,7 @@ describe('Stack', function() {
 
       it('adds a number to the stack', function() {
         stack.add(8);
+
         assert.equal(stack.values[stack.values.length - 1], 8);
       });
     });
@@ -63,6 +66,7 @@ describe('Stack', function() {
 
       it('returns null if stack is empty', function() {
         stack.values = [];
+
         assert.equal(stack.remove(), null);
       });
     });
@@ -82,6 +86,7 @@ describe('Stack', function() {
           function() {
         stack.remove();
         stack.remove();
+
         assert.equal(stack.getMax(), 2);
       });
 
@@ -90,10 +95,12 @@ describe('Stack', function() {
         stack.add(8);
         stack.add(10);
         // stack.values = [1, 2, 10, 8, 10], stack.maxNums = [1, 2, 10, 10]
+
         assert.equal(stack.getMax(), 10);
 
         stack.remove();
         //stack.values = [1, 2, 10, 8], stack.maxNums = [1, 2, 10]
+
         assert.equal(stack.getMax(), 10);
       })
 
@@ -102,6 +109,7 @@ describe('Stack', function() {
         stack.remove();
         stack.remove();
         stack.remove();
+
         assert.deepEqual(stack.getMax(), null);
       });
     });

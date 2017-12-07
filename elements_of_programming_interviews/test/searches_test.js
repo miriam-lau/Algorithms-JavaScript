@@ -17,6 +17,7 @@ describe('Searches', function() {
 
     it('works with the normal case', function() {
       const H = new Student("Miriam", 3.5);
+
       assert.equal(searches.findStudent(students, G), true);
       assert.equal(searches.findStudent(students, H), true);
     });
@@ -33,12 +34,14 @@ describe('Searches', function() {
     it('returns false if a student is not found', function() {
       const I = new Student("Madoka", 1.0);
       const J = new Student("Mami", 3.5);
+
       assert.equal(searches.findStudent(students, I), false);
       assert.equal(searches.findStudent(students, J), false);
     });
 
     it('returns false if students array is empty', function() {
       let emptyStudents = [];
+
       assert.equal(searches.findStudent(emptyStudents, B), false);
     });
   });
@@ -57,6 +60,7 @@ describe('Searches', function() {
 
     it('returns -1 if array is empty', function() {
       let emptyArr = [];
+
       assert.equal(searches.findFirstOccurrence(emptyArr, 50), -1);
     });
   });

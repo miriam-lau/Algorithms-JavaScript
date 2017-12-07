@@ -42,6 +42,7 @@ describe('Binary Tree', function() {
     it('prints inorder', function() {
       let spy = sinon.spy(console, 'log');
       binaryTree.printInorderTraversal(A);
+
       assert(spy.calledWith(28));
       assert(spy.calledWith(271));
       assert(spy.calledWith(0));
@@ -64,6 +65,7 @@ describe('Binary Tree', function() {
     it('prints preorder', function() {
       let spy = sinon.spy(console, 'log');
       binaryTree.printPreorderTraversal(A);
+
       assert(spy.calledWith(314));
       assert(spy.calledWith(6));
       assert(spy.calledWith(271));
@@ -86,6 +88,7 @@ describe('Binary Tree', function() {
     it('prints postorder', function() {
       let spy = sinon.spy(console, 'log');
       binaryTree.printPostorderTraversal(A);
+
       assert(spy.calledWith(28));
       assert(spy.calledWith(0));
       assert(spy.calledWith(271));

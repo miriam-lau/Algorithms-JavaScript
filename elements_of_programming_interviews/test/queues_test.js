@@ -15,6 +15,7 @@ describe('Queue', function() {
 
       it('adds to end of queue', function() {
         queue.enqueue(7);
+
         assert.equal(queue.values[queue.values.length - 1], 7);
       });
     });
@@ -38,6 +39,7 @@ describe('Queue', function() {
 
       it('returns null if queue is empty', function() {
         queue.values = [];
+
         assert.equal(queue.dequeue(), null);
       });
     });
@@ -60,6 +62,7 @@ describe('Queue', function() {
       it('returns next highest max if max is removed', function() {
         queue.dequeue();
         queue.dequeue();
+
         assert.equal(queue.getMax(), 6);
       });
 
@@ -71,12 +74,14 @@ describe('Queue', function() {
         queue.enqueue(8);
         queue.enqueue(10);
         // queue.values = [3, 6, 10, 8, 10], queue.maxNums = [10, 10]
+
         assert.equal(queue.getMax(), 10);
 
         queue.dequeue();
         queue.dequeue();
         queue.dequeue();
         // queue.values = [8, 10], queue.maxNums = [10]
+
         assert.equal(queue.getMax(), 10);
       });
 
@@ -85,6 +90,7 @@ describe('Queue', function() {
         queue.dequeue();
         queue.dequeue();
         queue.dequeue();
+
         assert.equal(queue.getMax(), null);
       });
     });
@@ -132,6 +138,7 @@ describe('Queue', function() {
 
     it('works with a tree with no right node at root', function() {
       A.right = null;
+
       assert.deepEqual(queue.computeBinaryTreeNodes(A),
           [ [314], [6], [271, 561], [28, 0, 3], [17] ]);
     });
@@ -139,12 +146,14 @@ describe('Queue', function() {
     it('works with a tree with no left node at root', function() {
       A.right = I;
       A.left = null;
+
       assert.deepEqual(queue.computeBinaryTreeNodes(A),
           [ [314], [6], [2, 271], [1, 28], [401, 257], [641] ]);
     });
 
     it('returns [] if tree is empty', function() {
       A = null;
+
       assert.deepEqual(queue.computeBinaryTreeNodes(A), []);
     });
   });

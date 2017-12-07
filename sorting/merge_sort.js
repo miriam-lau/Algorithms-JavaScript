@@ -25,6 +25,9 @@
  *      merger([7], [4]), returns [4, 7]
  *    merger([11], [4, 7]), returns [4, 7, 11]
  *  merger([1, 6], [4, 7, 11]), returns [1, 4, 6, 7, 11]
+ *
+ * Time complexity: O(n*logn)
+ * Space complexity: O(n), merger returns a new array.
  */
 var mergeSort = function(arr) {
   // Base case
@@ -33,7 +36,7 @@ var mergeSort = function(arr) {
   }
 
   let middleIndex = Math.floor(arr.length / 2);
-  
+
   // Call mergeSort on both halves and pass their return values to merger().
   let left = mergeSort(arr.slice(0, middleIndex));
   let right = mergeSort(arr.slice(middleIndex));

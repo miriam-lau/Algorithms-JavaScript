@@ -30,6 +30,9 @@
  *  - loop ends as i === lastIndex -
  *  swap pivot with element at insertPivotIndex; arr = [1, 4, 11, 7, 6]
  *  call quickSort on [1] and [11, 7, 6].
+ *
+ * Time complexity: O(n*logn) (best), O(n^2) (worst)
+ * Space complexity: O(1)
  */
 var quickSort = function(arr, leftIndex = null, rightIndex = null) {
   if (leftIndex === null) {
