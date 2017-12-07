@@ -3,8 +3,9 @@
  * Output: returns groups of anagrams for those words, each group must contain
  * at least two words.
  * Sort each word, and save as key, then add to map, compare other words to it
- * Time Complexity:
- * Space Complexity:
+ * Time Complexity: O(nlogn) or O(m), n is the length of the longest word,
+ * m is the length of words array.
+ * Space Complexity: O(m) length of the map.
  */
 var findAnagrams = function(words) {
   let wordMap = new Map();
