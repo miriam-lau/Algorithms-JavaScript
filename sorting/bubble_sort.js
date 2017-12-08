@@ -3,7 +3,7 @@
  * At the end of each loop through the entire array, the element in the last
  *  last position will be correct, so for the subsequent loop through the entire
  *  array only need to check up to the element before the previous last element.
- * Time complexity: O^2 (worst case)
+ * Time complexity: O(n^2) (worst case)
  * Space complexity: O(1)
  */
 var bubbleSort = function(arr) {

@@ -8,7 +8,7 @@ const Student = require("./student_class.js").Student;
  * Space Complexity: O(n)
  */
 
-// implement mergeSort
+// Implement using merge sort.
 var sortByName = function(students) {
   if (students.length <= 1) {
     return students;
