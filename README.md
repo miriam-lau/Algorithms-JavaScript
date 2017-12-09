@@ -1,6 +1,20 @@
-# Algorithms
+# README
 
-### Unit Tests:
+## Algorithms
+
+#### Elements of Programming Interviews
+Selected problems from Chapters 5 through 14.
+
+#### Leetcode
+Problems were from "Top Interview Questions" and divided in folders for easy, medium and hard.
+
+#### Searching
+Implementations of common searching algorithms.
+
+#### Sorting
+Implementations of commons sorting algorithms.
+
+## Unit Tests:
 Follow the instructions below for each project folder requiring unit tests.
 
 #### Setup Mocha, Chai, Sinon:

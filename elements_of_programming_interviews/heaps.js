@@ -1,96 +1,175 @@
+/** Min Heap
+ * Heap property: the key at each node >= keys stored in its children.
+ * Formula to find the children: 2i + 1, 2i + 2
+ * Formula to find parent: childIndex - 1 / 2 (if childIndex is odd),
+ *  childIndex - 2 / 2 (if childIndex is even)
+ */
+class MinHeap extends Array {
+  constructor() {
+    super();
+    this.values = [];
+  }
+
+  // Append to the end.
+  // Compare last node with parent and swap until last is in correct position.
+  insert(num) {
+    this.values.push(num);
+
+    // Sort by comparing child to parent.
+    let childIndex = this.values.length - 1;
+    let parentIndex;
+
+    if (childIndex === 0) {
+      parentIndex = 0;
+    } else {
+      parentIndex = (childIndex - (childIndex % 2 === 0 ? 2 : 1)) / 2;
+    }
+
+    while (parentIndex >= 0 &&
+          this.values[childIndex] < this.values[parentIndex]) {
+      let temp = this.values[parentIndex];
+      this.values[parentIndex] = this.values[childIndex];
+      this.values[childIndex] = temp;
+
+      childIndex = parentIndex;
+      parentIndex = (childIndex - (childIndex % 2 === 0 ? 2 : 1)) / 2;
+    }
+  }
+
+  // Swap top node with last node, then remove last node.
+  // Compare top node with children and swap until top is in correct position.
+  remove() {
+    if (this.values.length === 0) {
+      return null;
+    }
+
+    let deletedNum = this.values[0];
+    this.values[0] = this.values[this.values.length - 1];
+    this.values.pop();
+
+    // Sort by comparing parent to children.
+    let parentIndex = 0;
+    let oddChild = (2 * parentIndex + 1);
+    let evenChild = (2 * parentIndex + 2);
+    let childIndex;
+
+    if (oddChild === this.values.length - 1) {
+      childIndex = oddChild;
+    } else {
+      childIndex = (this.values[oddChild] < this.values[evenChild] ?
+          oddChild : evenChild);
+    }
+
+    while (parentIndex < this.values.length &&
+        this.values[parentIndex] > this.values[childIndex]) {
+      let temp = this.values[parentIndex];
+      this.values[parentIndex] = this.values[childIndex];
+      this.values[childIndex] = temp;
+
+      parentIndex = childIndex;
+      oddChild = (2 * parentIndex + 1);
+      evenChild = (2 * parentIndex + 2);
+
+      // Need to check if oddChild is the last index of array before comparison
+      // to evenChild.
+      if (oddChild === this.values.length - 1) {
+        childIndex = oddChild;
+      } else {
+        childIndex = (this.values[oddChild] < this.values[evenChild] ?
+          oddChild : evenChild);
+      }
+    }
+
+    return deletedNum;
+  }
+}
+
 /** 10.0 Heaps Boot Camp
  * Input: sequence of strings in "streaming" fashion (cannot back up to read an
- * earlier value).
+ *  earlier value).
  * Output: compute the k longest strings in the sequence, order not important.
  * Need to store strings by length, and if new string is longer than a previous
  * one, need to insert it in the right place.
- * Heap property: the key at each node >= keys stored in its children.
- * Time Complexity: 
+ * Create a minHeap: parent value <= children's values.
+ * Time Complexity:
  * Space Complexity:
  */
 var getKLongestStrings = function(strings, k) {
-  // Create a minHeap: parent value <= children's values.
-  // Formulat to find the children: 2i + 1, 2i + 2
-  // Formula to find parent: childIndex - 1 / 2 (if childIndex is odd),
-  //  childIndex - 2 / 2 (if childIndex is even)
   if (strings.length < k) {
     return strings;
   }
 
   let minHeap = [];
-  minHeap.push(strings[0]);
-  let strIndex = 1;
+  let index = 0;
 
+  // Add strings to minHeap as long as minHeap.length < k
   while (minHeap.length < k) {
-    // Push the string to the end of the minHeap.
-    if (strings[strIndex].length < minHeap[0].length) {
-      minHeap.push(minHeap[0]);
-      minHeap[0] = strings[strIndex];
+    minHeap.push(strings[index]);
+
+    let childIndex = minHeap.length - 1;
+    let parentIndex;
+
+    if (childIndex === 0) {
+      parentIndex = 0;
     } else {
-      minHeap.push(strings[strIndex]);
+      parentIndex = (childIndex - (childIndex % 2 === 0 ? 2 : 1)) / 2;
     }
 
-    // Compare last entry in minHeap to parents and sort accordingly.
-    let currentIndex = minHeap.length - 1;
-    let parentIndex = (currentIndex - ((currentIndex % 2 === 0) ? 2 : 1)) / 2;
+    while (parentIndex >= 0 &&
+          minHeap[childIndex] < minHeap[parentIndex]) {
+      let temp = minHeap[parentIndex];
+      minHeap[parentIndex] = minHeap[childIndex];
+      minHeap[childIndex] = temp;
 
-    while (minHeap[currentIndex].length < minHeap[parentIndex].length) {
-      // Swap current and parent, and reassign indices.
-      let temp = minHeap[currentIndex];
-      minHeap[currentIndex] = minHeap[parentIndex];
-      minHeap[parentIndex] = temp;
-      currentIndex = parentIndex;
-      parentIndex = (currentIndex - ((currentIndex % 2 === 0) ? 2 : 1)) / 2;
-
-      if (currentIndex === parentIndex) {
-        break;
-      }
+      childIndex = parentIndex;
+      parentIndex = (childIndex - (childIndex % 2 === 0 ? 2 : 1)) / 2;
     }
-    strIndex++;
+
+    index++;
   }
 
   // Heap is now ordered by shortest length at index 0 and has k entries;
-  for (let i = strIndex; i < strings.length; i++) {
+  for (let i = index; i < strings.length; i++) {
+    // Only add strings that are longer than minHeap[0].
     if (strings[i].length <= minHeap[0].length) {
       continue;
     }
 
-    // Replace minHeap[0] with strings[i] then compare minHeap[0] with its
-    // children and sort if needed.
-    minHeap[0] = strings[i];
+    minHeap.push(strings[i]);
+    minHeap[0] = minHeap[minHeap.length - 1];
+    minHeap.pop();
+
+    // Sort by comparing parent to children.
     let parentIndex = 0;
-    let childIndexOdd = (2 * parentIndex) + 1;
-    let childIndexEven = (2 * parentIndex) + 2;
+    let oddChild = (2 * parentIndex + 1);
+    let evenChild = (2 * parentIndex + 2);
+    let childIndex;
 
-    while (minHeap[parentIndex] > minHeap[childIndexOdd] ||
-          minHeap[parentIndex] > minHeap[childIndexEven]) {
-      let temp = minHeap[parentIndex];
-
-      if (minHeap[childIndexOdd] < minHeap[childIndexEven] ||
-            minHeap[childIndexEven === null]) {
-        minHeap[parentIndex] = minHeap[childIndexOdd];
-        minHeap[childIndexOdd] = temp;
-        parentIndex = childIndexOdd;
-      } else {
-        minHeap[parentIndex] = minHeap[childIndexEven];
-        minHeap[childIndexEven] = temp;
-        parentIndex = childIndexEven;
-      }
-
-      childIndexOdd = (2 * parentIndex) + 1;
-      childIndexEven = (2 * parentIndex) + 2;
-
-      if (childIndexOdd > minHeap.length - 1 ||
-          childIndexEven > minHeap.length - 1) {
-        break;
-      }
+    if (oddChild === minHeap.length - 1) {
+      childIndex = oddChild;
+    } else {
+      childIndex = (minHeap[oddChild] < minHeap[evenChild] ?
+          oddChild : evenChild);
     }
 
-    if ((childIndexOdd === minHeap.length - 1) &&
-        minHeap[parentIndex] > minHeap[childIndexOdd]) {
+    while (parentIndex < minHeap.length &&
+        minHeap[parentIndex] > minHeap[childIndex]) {
       let temp = minHeap[parentIndex];
-      minHeap[parentIndex] = minHeap[childIndexOdd];
-      minHeap[childIndexOdd] = temp;
+      minHeap[parentIndex] = minHeap[childIndex];
+      minHeap[childIndex] = temp;
+
+      parentIndex = childIndex;
+      oddChild = (2 * parentIndex + 1);
+      evenChild = (2 * parentIndex + 2);
+
+      // Need to check if oddChild is the last index of array before comparison
+      // to evenChild.
+      if (oddChild === minHeap.length - 1) {
+        childIndex = oddChild;
+      } else {
+        childIndex = (minHeap[oddChild] < minHeap[evenChild] ?
+            oddChild : evenChild);
+      }
     }
   }
 
@@ -100,45 +179,46 @@ var getKLongestStrings = function(strings, k) {
 /** 10.1 Merge sorted files
  * Input: set of sorted sequences
  * Output: computes the union of these sequences as a sorted sequence.
+ *
+ * Solution:
+ *  Since sequences are sorted, add the num at index 0 from each sequence,
+ *  sort, then add the lowest num to the result. Then continue with each index.
+ *  Deleting an element, swap with last child, remove, then sort.
+ *
  * Example: [[3, 5, 7], [0, 6], [0, 6, 28]] returns [0, 0, 3, 5, 6, 6, 7, 28].
  * Time Complexity:
  * Space Complexity:
  */
-/*
- var mergeSortedFiles = function(sequences) {
-  // Since sequences are sorted, add the first num from each sequence to the
-  // min Heap, sort them, then move the lowest num to result array.
-  // how do know which sequence the num came from?
-  let minHeap = [];
+var mergeSortedFiles = function(sequences) {
+  // Find the number of elements in sequences.
+  let numElements = 0;
+  for (let i = 0; i < sequences.length; i++) {
+    numElements += sequences[i].length;
+  }
+
+  let minHeap = new MinHeap();
+  let result = [];
   let index = 0;
 
-  // outer loop
+  while (result.length != numElements) {
     for (let i = 0; i < sequences.length; i++) {
-      minHeap.push(sequences[i][0]);
-
-      if (minHeap.length > 0) {
-        let childIndex = minHeap.length - 1;
-        let parentIndex = (childIndex - (childIndex % 2 === 0 ? 2 : 1)) / 2;
-
-        while (minHeap[parentIndex] > minHeap[childIndex]) {
-          let temp = minHeap[childIndex];
-          minHeap[childIndex] = minHeap[parent];
-          minHeap[parentIndex] = temp;
-          childIndex = parentIndex;
-          parentIndex = (childIndex - (childIndex % 2 === 0 ? 2 : 1)) / 2;
-
-          if (childIndex === parentIndex) {
-            break;
-          }
-        }
+      // Skip sequence if sequence is empty.
+      if (index >= sequences[i].length) {
+        continue;
       }
+
+      minHeap.insert(sequences[i][index]);
     }
 
+    // Add the current lowest num to result.
+    result.push(minHeap.remove());
     index++;
-    // add minHeap[0] to result;
-    // add next num from sequence that contained minHeap[0].
   }
-}
-*/
 
+  return result;
+}
+
+
+exports.MinHeap = MinHeap;
 exports.getKLongestStrings = getKLongestStrings;
+exports.mergeSortedFiles = mergeSortedFiles;
