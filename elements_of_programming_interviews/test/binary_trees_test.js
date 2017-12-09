@@ -110,6 +110,76 @@ describe('Binary Tree', function() {
   });
 
   describe('#isHeightBalanced', function() {
-    it('pending')
+    it('returns true if tree is balanced', function() {
+      let A = new BTNode(314);
+      const B = new BTNode(6);
+      const C = new BTNode(271);
+      const D = new BTNode(28);
+      const E = new BTNode(0);
+      const F = new BTNode(561);
+      const G = new BTNode(3);
+      const H = new BTNode(17);
+      const I = new BTNode(6);
+      const J = new BTNode(2);
+      const K = new BTNode(1);
+      const L = new BTNode(401);
+      const M = new BTNode(641);
+      const N = new BTNode(257);
+      const O = new BTNode(271);
+      const P = new BTNode(28);
+
+      A.left = B;
+      A.right = K;
+      B.left = C;
+      B.right = H;
+      C.left = D;
+      C.right = G;
+      D.left = E;
+      D.right = F;
+      H.left = I;
+      H.right = J;
+      K.left = L;
+      K.right = O;
+      L.left = M;
+      L.right = N;
+
+      assert.equal(binaryTree.isHeightBalanced(A), true);
+    });
+
+    it('returns false if tree is not balanced', function() {
+      let A = new BTNode(314);
+      const B = new BTNode(6);
+      const C = new BTNode(271);
+      const D = new BTNode(28);
+      const E = new BTNode(0);
+      const F = new BTNode(561);
+      const G = new BTNode(3);
+      const H = new BTNode(17);
+      const K = new BTNode(1);
+      const L = new BTNode(401);
+      const M = new BTNode(641);
+      const N = new BTNode(257);
+      const O = new BTNode(271);
+      const P = new BTNode(28);
+
+      A.left = B;
+      A.right = K;
+      B.left = C;
+      B.right = H;
+      C.left = D;
+      C.right = G;
+      D.left = E;
+      D.right = F;
+      K.left = L;
+      K.right = O;
+      L.left = M;
+      L.right = N;
+
+      assert.equal(binaryTree.isHeightBalanced(A), false);
+    });
+
+    it('returns true if tree is empty', function() {
+      assert.equal(binaryTree.isHeightBalanced(null), true);
+    });
   });
 });

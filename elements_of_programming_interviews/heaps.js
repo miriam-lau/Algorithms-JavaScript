@@ -53,6 +53,8 @@ class MinHeap extends Array {
     let evenChild = (2 * parentIndex + 2);
     let childIndex;
 
+    // Need to check if oddChild is the last index of array before comparison
+    // to evenChild.
     if (oddChild === this.values.length - 1) {
       childIndex = oddChild;
     } else {
@@ -70,8 +72,6 @@ class MinHeap extends Array {
       oddChild = (2 * parentIndex + 1);
       evenChild = (2 * parentIndex + 2);
 
-      // Need to check if oddChild is the last index of array before comparison
-      // to evenChild.
       if (oddChild === this.values.length - 1) {
         childIndex = oddChild;
       } else {
@@ -145,6 +145,8 @@ var getKLongestStrings = function(strings, k) {
     let evenChild = (2 * parentIndex + 2);
     let childIndex;
 
+    // Need to check if oddChild is the last index of array before comparison
+    // to evenChild.
     if (oddChild === minHeap.length - 1) {
       childIndex = oddChild;
     } else {
@@ -162,8 +164,6 @@ var getKLongestStrings = function(strings, k) {
       oddChild = (2 * parentIndex + 1);
       evenChild = (2 * parentIndex + 2);
 
-      // Need to check if oddChild is the last index of array before comparison
-      // to evenChild.
       if (oddChild === minHeap.length - 1) {
         childIndex = oddChild;
       } else {
